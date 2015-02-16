@@ -1,3 +1,6 @@
+# Used to migrate old bikeDB incident model to newer database that uses multi-table inheritance
+# Written by Taylor Denouden, Feb 16, 2015
+
 import sys, os, django, json
 
 # Get Django settings and shell commands
