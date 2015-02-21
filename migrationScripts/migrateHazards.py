@@ -5,7 +5,7 @@ import sys, os, django, json
 
 # Get Django settings and shell commands
 sys.path.append( os.path.dirname(os.getcwd()) )
-os.environ['DJANGO_SETTINGS_MODULE'] = 'VicBikeMap.settings.dev'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'VicBikeMap.settings.prod'
 django.setup()
 
 from django.contrib.gis.geos import GEOSGeometry
@@ -19,12 +19,11 @@ def main(argv):
     json_data = open(argv[0]).read()
     data = json.loads(json_data)
 
-    for f in data['features']:
-        # print json.dumps(f, indent=2, separators=(',', ': '))
-        # Set properties
-        p = f['properties']
+    for f in data:
+        p = f['fields']
+
         hazard = Hazard(
-            geom = GEOSGeometry(json.dumps( f['geometry'] )),
+            geom = GEOSGeometry(p['geom']),
 
             report_date = p["date"],
 
